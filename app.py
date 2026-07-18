@@ -209,22 +209,18 @@ def time_ago(iso_str):
 
 
 # --------------------------------------------------------------------------
-# CSS (dark theme, close to the original design)
+# CSS -- just the custom touches now; base widget theming comes from
+# .streamlit/config.toml, which is why this block is shorter than before.
 # --------------------------------------------------------------------------
 st.markdown("""
 <style>
-:root{
-  --void:#121214; --surface:#1c1c1f; --surface-2:#232326; --ink:#f5f3ee; --ink-dim:#9a9a97;
-  --flash:#f4c744; --safelight:#e4572e; --hairline:rgba(245,243,238,0.09);
-}
-.stApp{background:var(--void); color:var(--ink);}
-.block-container{max-width:520px; padding-top:1.2rem;}
+.block-container{max-width:560px; padding-top:1.2rem;}
 h1,h2,h3{font-family:Georgia,serif; font-style:italic;}
-.ap-card{border:1px solid var(--hairline); border-radius:14px; padding:14px; margin-bottom:14px; background:var(--surface);}
+.ap-card{border:1px solid rgba(245,243,238,0.09); border-radius:14px; padding:14px; margin-bottom:14px; background:#1c1c1f;}
 .ap-caption{font-size:14px; line-height:1.5;}
-.ap-hashtags{color:var(--flash); font-family:monospace; font-size:12px; display:block; margin-top:4px;}
-.ap-dim{color:var(--ink-dim); font-size:12px;}
-.ap-flash{color:var(--flash);}
+.ap-hashtags{color:#f4c744; font-family:monospace; font-size:12px; display:block; margin-top:4px;}
+.ap-dim{color:#9a9a97; font-size:12px;}
+.ap-flash{color:#f4c744;}
 </style>
 """, unsafe_allow_html=True)
 
