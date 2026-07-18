@@ -209,8 +209,8 @@ def time_ago(iso_str):
 
 
 # --------------------------------------------------------------------------
-# CSS -- just the custom touches now; base widget theming comes from
-# .streamlit/config.toml, which is why this block is shorter than before.
+# CSS -- base widget theming comes from .streamlit/config.toml; this block
+# adds custom touches plus button/image polish on top of that.
 # --------------------------------------------------------------------------
 st.markdown("""
 <style>
@@ -221,6 +221,34 @@ h1,h2,h3{font-family:Georgia,serif; font-style:italic;}
 .ap-hashtags{color:#f4c744; font-family:monospace; font-size:12px; display:block; margin-top:4px;}
 .ap-dim{color:#9a9a97; font-size:12px;}
 .ap-flash{color:#f4c744;}
+
+/* Button polish: no more mid-word wrapping, softer corners, gold hover accent */
+.stButton > button {
+  white-space: nowrap;
+  border-radius: 10px;
+  font-size: 13.5px;
+  padding: 0.4rem 0.6rem;
+  transition: border-color .15s ease, color .15s ease;
+}
+.stButton > button:hover {
+  border-color: #f4c744;
+  color: #f4c744;
+}
+.stButton > button:focus:not(:active) {
+  border-color: #f4c744;
+  color: #f4c744;
+}
+
+/* Rounded corners + subtle border on every photo, feed or story */
+.stImage img {
+  border-radius: 14px;
+  border: 1px solid rgba(245,243,238,0.09);
+}
+
+/* Tighten the gap between the nav row and whatever follows */
+div[data-testid="stVerticalBlock"] > div:has(> div.stButton) {
+  margin-bottom: 0.15rem;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -343,7 +371,7 @@ def screen_auth():
 # --------------------------------------------------------------------------
 def top_nav():
     my = me()
-    c1, c2 = st.columns([4, 1])
+    c1, c2 = st.columns([5, 1.4])
     with c1:
         st.markdown("### Aperture<span class='ap-flash'>.</span>", unsafe_allow_html=True)
     with c2:
@@ -351,8 +379,8 @@ def top_nav():
             st.session_state.user_id = None
             st.rerun()
 
-    cols = st.columns(6)
-    labels = ["Home", "Explore", "+ Post", "+ Story", "Messages", "Activity"]
+    cols = st.columns([1, 1.25, 1, 1.05, 1.4, 1.3])
+    labels = ["Home", "Explore", "Post", "Story", "Messages", "Activity"]
     targets = ["feed", "explore", "create_post", "create_story", "inbox", "activity"]
     for c, label, target in zip(cols, labels, targets):
         if c.button(label, use_container_width=True, key=f"nav_{target}"):
